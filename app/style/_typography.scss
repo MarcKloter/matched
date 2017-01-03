@@ -1,0 +1,83 @@
+@font-face {
+  font-family: "Raleway";
+  font-weight: 100;
+  src: local("Raleway"), local("Raleway-Thin"), url("../font/Raleway-Thin.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway";
+  font-weight: 300;
+  src: local("Raleway"), local("Raleway-Light"), url("../font/Raleway-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway";
+  font-weight: 400;
+  src: local("Raleway"), local("Raleway-Regular"), url("../font/Raleway-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway";
+  font-weight: 500;
+  src: local("Raleway"), local("Raleway-Medium"), url("../font/Raleway-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway";
+  font-weight: 600;
+  src: local("Raleway"), local("Raleway-SemiBold"), url("../font/Raleway-SemiBold.ttf") format("truetype");
+}
+
+h1, h2 {
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 3em;
+  font-weight: 100;
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 2em;
+  font-weight: 300;
+}
+
+h3 {
+  font-weight: 500;
+  margin-bottom: 0.25em;
+}
+
+p {
+  margin-top: 0.25em;
+
+  &.subtitled {
+    margin-bottom: 0;
+  }
+}
+
+em {
+  font-size: 2em;
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: 300;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  text-transform: uppercase;
+  display: inline-block;
+  font-size: 1.25em;
+  padding: 0.25em 0.5em;
+  margin: 0.5em;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
+small {
+  font-size: 0.875em;
+}

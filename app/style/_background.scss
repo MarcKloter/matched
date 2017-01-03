@@ -1,0 +1,28 @@
+.bg-word {
+  position: absolute;
+  display: none;
+
+  span {
+    font-weight: 300;
+  }
+
+  mark {
+    font-weight: 500;
+    background-color: inherit;
+    color: inherit;
+  }
+}
+
+section {
+  .background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* set <section><article> to relative for z-index to apply (so absolut elements are behind it)  */
+  article {
+    position: relative;
+  }
+}

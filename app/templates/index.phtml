@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <title>Matched</title>
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
+    <section data-view="home" data-href="/" data-transition="bottom">
+      <article>
+        <h1 class="page-title">Matched</h1>
+        <h2>Anleitung</h2>
+        <div id="instructions">
+          <div class="instruction-section">
+            <div class="instruction-box" data-number="1">Baum</div>
+            <p>Du erhälst ein Wort.</p>
+          </div>
+          <div class="instruction-section">
+            <div class="instruction-box" data-number="2">Baumhaus</div>
+            <p>Benutze es um etwas neues zu daraus kreieren.</p>
+          </div>
+          <div class="instruction-section">
+            <div class="instruction-box" data-number="3">3'480'000 Resultate</div>
+            <p>Wir durchsuchen das Internet nach deiner Kreation: versuche genau 1 Resultat zu erreichen!</p>
+          </div>
+        </div>
+
+        <h2>Spielen</h2>
+        <input id="username-input" type="text" maxlength="32" placeholder="Benutzername"/>
+        <p class="error-message" data-for="username-input"></p>
+
+        <div id="g-recaptcha"></div>
+
+        <button id="play-button" disabled>Starten</button>
+        <button id="ladder-button">Bestenlisten</button>
+      </article>
+    </section>
+
+    <section data-view="game" data-href="/play" data-transition="top">
+      <article>
+        <h1 class="page-title">Matched</h1>
+        <h3>Dein Wort ist</h3>
+        <p><em id="word"><?=(isset($data['game']) ? $data['game']['word'] : '')?></em></p>
+
+        <input id="creation-input" maxlength="255" type="text"/>
+        <p class="error-message" data-for="creation-input"></p>
+
+        <p id="timer"><span><?=(isset($data['game']) ? (15 - (time() - strtotime($data['game']['start']))) : '')?></span> verbleibende Sekunden</p>
+        <button id="submit-button" disabled>Abschicken</button>
+      </article>
+    </section>
+
+    <section data-view="score" data-transition="right">
+      <article>
+        <h1 class="page-title">Matched</h1>
+        <h3>Deine Kreation</h3>
+        <p><em id="creation"></em></p>
+
+        <h3>Ergebnisse</h3>
+        <p class="subtitled"><em id="results"></em></p>
+        <p><small>(Besser als <span id="percent"></span>% aller Spieler dieses Wortes)</small></p>
+
+        <h3>Highscore</h3>
+        <p class="subtitled"><em id="highscore"></em></p>
+        <p><small>(Dein Rang: <span id="rank"></span>.)</small></p>
+
+        <p><small><a id="highscore-anchor" data-target="highscore">Bestenliste für <span id="score-word"></span> anzeigen</a></small></p>
+
+        <button id="play-again-button">Erneut Spielen</button>
+      </article>
+    </section>
+
+    <section data-view="failed" data-transition="right">
+      <article>
+        <h1 class="page-title">Matched</h1>
+        <h3>Das war leider ein Fehlversuch!</h3>
+
+        <img src="/img/smiley.svg" />
+
+        <button id="retry-button">Neuer Versuch</button>
+      </article>
+    </section>
+
+    <section data-view="ladder" data-href="/ladder" data-transition="right">
+      <article>
+        <h1 class="page-title">Matched</h1>
+        <h2>Bestenlisten</h2>
+        <p>
+          <?php
+            if(isset($data['ladder'])) {
+              foreach($data['ladder'] as $word) {
+                echo "<a data-href='/ladder/$word' data-target='highscore'>$word</a>";
+              }
+            }
+          ?>
+        </p>
+        <button class="back-button" data-target="<?=(isset($data['ladder']) ? 'home' : '')?>" data-href="<?=(isset($data['ladder']) ? '/' : '')?>"><?=(isset($data['ladder']) ? 'Zur Startseite' : 'Zurück')?></button>
+      </article>
+    </section>
+
+    <section data-view="highscore" data-href="/ladder/" data-transition="left">
+      <article>
+        <h1 class="page-title">Matched</h1>
+
+        <h2 id="highscore-word"><?=(isset($data['highscore']) ? $data['word'] : '')?></h2>
+
+        <table id="highscore-table">
+          <tr>
+            <th></th>
+            <th>Benutzername</th>
+            <th>Anzahl Resultate</th>
+          </tr>
+            <?php
+              if(isset($data['highscore'])) {
+                $rank = 1;
+                foreach($data['highscore'] as $score) {
+                  echo "<tr><td>$rank.</td><td>$score[username]</td><td>$score[score]</td></tr>";
+                  $rank++;
+                }
+              }
+            ?>
+        </table>
+
+        <button class="back-button" data-target="<?=(isset($data['highscore']) ? 'home' : '')?>" data-href="<?=(isset($data['highscore']) ? '/' : '')?>"><?=(isset($data['highscore']) ? 'Zur Startseite' : 'Zurück')?></button>
+      </article>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src='https://www.google.com/recaptcha/api.js?onload=recaptchaLoaded&render=explicit&hl=de' async defer></script>
+    <script src="/js/transitions.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/background.js"></script>
+  </body>
+</html>

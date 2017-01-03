@@ -1,0 +1,71 @@
+@keyframes moveToLeft { to { transform: translateX(-100%); } }
+@keyframes moveFromLeft {	from { transform: translateX(-100%); } }
+
+@keyframes moveToRight { to { transform: translateX(100%); } }
+@keyframes moveFromRight { from { transform: translateX(100%); } }
+
+@keyframes moveToTop { to { transform: translateY(-100%); } }
+@keyframes moveFromTop { from { transform: translateY(-100%); } }
+
+@keyframes moveToBottom { to { transform: translateY(100%); } }
+@keyframes moveFromBottom { from { transform: translateY(100%); } }
+
+.moveToLeft { animation: moveToLeft 0.6s ease both; }
+.moveFromLeft { animation: moveFromLeft 0.6s ease both; }
+
+.moveToRight { animation: moveToRight 0.6s ease both; }
+.moveFromRight { animation: moveFromRight 0.6s ease both; }
+
+.moveToTop { animation: moveToTop 0.6s ease both; }
+.moveFromTop { animation: moveFromTop 0.6s ease both; }
+
+.moveToBottom { animation: moveToBottom 0.6s ease both; }
+.moveFromBottom { animation: moveFromBottom 0.6s ease both; }
+
+/* Disable pointer events and lock size during animations */
+.moveToLeft, .moveFromLeft, .moveToRight, .moveFromRight,
+.moveToTop, .moveFromTop, .moveToBottom, .moveFromBottom {
+	pointer-events: none;
+	overflow: hidden;
+	height: 100vh;
+}
+
+body {
+	overflow-x: hidden;
+}
+
+section {
+	width: 100%;
+	min-height: 100%;
+	position: absolute;
+	visibility: hidden;
+
+	&.active {
+		visibility: visible;
+	}
+
+	/* avoid hidden views to make the body expand */
+	&:not(.active) {
+		overflow: hidden;
+		height: 100vh;
+	}
+
+	/* Background Colors */
+	&[data-view="home"] { background-color: $blue; }
+	&[data-view="home"] article { background-color: rgba(lighten($blue, 1%), 0.85); }
+
+	&[data-view="game"] { background-color: $orange; }
+	&[data-view="game"] article { background-color: rgba(lighten($orange, 2%), 0.85); }
+
+	&[data-view="score"] { background-color: $green; }
+	&[data-view="score"] article { background-color: rgba(lighten($green, 3%), 0.85); }
+
+	&[data-view="failed"] { background-color: $green; }
+	&[data-view="failed"] article { background-color: rgba(lighten($green, 3%), 0.85); }
+
+	&[data-view="ladder"] { background-color: $red; }
+	&[data-view="ladder"] article { background-color: rgba(lighten($red, 2%), 0.85); }
+
+	&[data-view="highscore"] { background-color: $pink; }
+	&[data-view="highscore"] article { background-color: rgba(lighten($pink, 2%), 0.85); }
+}

@@ -1,0 +1,167 @@
+html {
+  /* needs to be auto for Google Recaptcha to properly be displayed */
+  height: auto;
+}
+
+body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Raleway';
+  color: $text-color;
+  text-align: center;
+}
+
+article {
+  box-sizing: border-box;
+  max-width: $content-max-width;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 4em 2em 2em 2em;
+}
+
+.page-title {
+  display: inline-block;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+img {
+  margin: 2em;
+}
+
+table {
+  margin: 3em auto;
+  width: 80%;
+
+  th, td {
+    text-transform: uppercase;
+    padding: 0.5em 0;
+  }
+}
+
+button {
+  width: 20em;
+  display: block;
+  margin: 1em auto 2em auto;
+  font-weight: 300;
+  text-transform: uppercase;
+  background-color: $button-color;
+  padding: 1em 4em;
+  border: 1px solid $button-color;
+  outline: none;
+  position: relative;
+
+  &:hover {
+    cursor: pointer;
+    border-color: $border-color;
+  }
+
+  &[disabled] {
+    color: rgba($text-color, 0.4);
+    background-color: rgba($button-color, 0.05);
+    border-color: transparent;
+
+    &:hover {
+      cursor: default;
+      border-color: transparent;
+    }
+  }
+}
+
+input {
+  width: 13em;
+  font-family: inherit;
+  font-size: 1.25em;
+  margin: 1em 0 0.5em 0;
+  padding: 0.75em 1.5em;
+  text-transform: uppercase;
+  text-align: center;
+  background-color: $input-color;
+  border: none;
+  outline: none;
+  border-radius: 0;
+
+  @mixin placeholder {
+    &::-webkit-input-placeholder {@content}
+    &:-moz-placeholder {@content}
+    &::-moz-placeholder {@content}
+    &:-ms-input-placeholder {@content}
+  }
+
+  @include placeholder {
+    color: rgba($text-color, 0.7);
+  }
+
+  &.invalid:after {
+    display: block;
+    content: "";
+    position: absolute;
+  }
+}
+
+.error-message {
+  margin: 0 auto;
+  width: 22em;
+  min-height: 1.5em;
+  font-size: 0.875em;
+
+  &:not(.invalid) {
+    visibility: hidden;
+  }
+}
+
+#instructions {
+  margin-bottom: 4em;
+
+  .instruction-section {
+    .instruction-box {
+      position: relative;
+      width: 50%;
+      margin: 0 auto;
+      border: 2px solid $border-color;
+      padding: 1.5em 2em;
+      font-size: 1.25em;
+
+      @media screen and (max-width: 800px) {
+        width: auto;
+      }
+
+      &:before {
+        content: attr(data-number);
+        border: 2px solid $border-color;
+        border-radius: 50%;
+        position: absolute;
+        width: 2em;
+        height: 2em;
+        line-height: 2em;
+        top: -1em;
+        left: -1em;
+        background-color: lighten($blue, 1%);
+      }
+    }
+
+    p {
+      padding: 1em 0;
+    }
+  }
+}
+
+#timer {
+  margin-top: 2em;
+}
+
+[data-view="ladder"] article p {
+  margin-bottom: 3em;
+}
+
+#g-recaptcha {
+  margin: 1em 0;
+
+  > div {
+    margin: 0 auto;
+  }
+}

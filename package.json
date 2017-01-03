@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "normalize-scss": "latest",
+    "jquery": "latest",
+    "gulp": "latest",
+    "gulp-sass": "latest",
+    "gulp-connect-php": "latest",
+    "browser-sync": "latest"
+  }
+}

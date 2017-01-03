@@ -1,0 +1,7 @@
+node_modules
+app/vendor
+app/logs
+app/style/*.css
+composer.lock
+app/php/config.php
+report
