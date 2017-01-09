@@ -182,7 +182,7 @@ function submit() {
 
       resetPlay();
     },
-    eror: function() {
+    error: function() {
       failedAttempt();
     }
   });
