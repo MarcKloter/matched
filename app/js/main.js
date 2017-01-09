@@ -4,7 +4,7 @@ $(function() {
   $('section[data-href^="' + uri + '"]').eq(0).addClass('active');
 
   // on game reentrance, continue timer
-if(uri == 'play') {
+if(uri == '/play') {
   startTimer($('#timer span').html());
 }
 
