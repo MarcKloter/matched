@@ -88,6 +88,9 @@ function play() {
   // disable the play/play again button to prevent multiple start game requests
   $(this).prop('disabled', true);
 
+  // if there was is username defined (e.g. hardreload), redirect to home
+  if(typeof username === 'undefined') switchTo('home', '/');
+
   // start new game
   $.ajax({
     url: "/game",
@@ -182,8 +185,16 @@ function submit() {
 
       resetPlay();
     },
-    error: function() {
-      failedAttempt();
+    statusCode: {
+      422: function() {
+        failedAttempt();
+      },
+      503: function() {
+        // Google Custom Serach API Daily Limit exceeded
+        $('[data-view=failed] h3').html('Unser tägliches Limit an Anfragen ist leider erschöpft.');
+        failedAttempt();
+        $('#retry-button').prop('disabled', true);
+      }
     }
   });
 }

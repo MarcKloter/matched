@@ -63,10 +63,10 @@ class Matched {
     // get the id and word for this game
     $word = $this->getWord();
 
-    // if there was no word for this game available, return 503 - Internal Server Error
+    // if there was no word for this game available, return 422 - Unprocessable Entity
     if(!$word) {
       $this->ci->logger->emergency('There are no words left!');
-      return $response->withStatus(503);
+      return $response->withStatus(422);
     }
 
     $username = $args['username'];
@@ -89,7 +89,7 @@ class Matched {
       return $response->withJson($return, 201);
     } else {
       $this->ci->logger->error($stmt->errorInfo());
-      return $response->withStatus(503);
+      return $response->withStatus(422);
     }
   }
 
@@ -198,7 +198,7 @@ class Matched {
       $score = $this->requestScore($args['creation']);
 
       if($score === null) {
-        // if there was an error retreiving the result count, return with 503 - Internal Server Error
+        // if there was an error retreiving the result count, return with 503 - Service Unavailable
         return $response->withStatus(503);
       }
 
@@ -209,7 +209,7 @@ class Matched {
 
         if(!$stmt->execute()) {
           $this->ci->logger->error($stmt->errorInfo());
-          return $response->withStatus(503);
+          return $response->withStatus(422);
         }
       }
 
@@ -257,7 +257,7 @@ class Matched {
         return $response->withJson($return);
       } else {
         $this->ci->logger->error($stmt->errorInfo());
-        return $response->withStatus(503);
+        return $response->withStatus(422);
       }
     } else {
       // if the creation was invalid, return 400 - Bad Request
@@ -382,6 +382,12 @@ class Matched {
     $googleResponse = json_decode(curl_exec($ch));
 
     curl_close($ch);
+
+    // check whether the daily API request limit was exceeded
+    if(isset($googleResponse->error->code) && $googleResponse->error->code == 403) {
+        $this->ci->logger->critical('Google Custom Search API Key daily limit exceeded.');
+        return null;
+    }
 
     return $googleResponse->queries->request[0]->totalResults;
   }
