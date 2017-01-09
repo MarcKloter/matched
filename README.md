@@ -1,7 +1,7 @@
 # Matched
 Small game created for Web Engineering, autumn semester 2016.
 
-Available at: [matched.codeable.ch](matched.codeable.ch)
+Available at: [matched.codeable.ch](http://matched.codeable.ch)
 
 ## How it works
 The player receives a random word - for example "bean". He then has to use this word to build something new, containing the given word - such as "caribbean".
@@ -23,9 +23,9 @@ The words are coming from the [DeReWo](http://www1.ids-mannheim.de/kl/projekte/m
 
 | Method | Status Code               | Description |
 | ------ |:------------------------- | :---------- |
-| GET    | 200 OK<br>404 Not Found | returns the current game of this session as `{"start":"YYYY-MM-DD hh:mm:ss","username":"YourUsername","word":"YourWord"}` |
-| POST   | 201 Created<br>400 Bad Request<br>503 Internal Server Error | starts a new game for this session<br>required parameters: `username` (1-32 alphanumeric String) and `g-recaptcha-response` (Google Recaptcha Response for `6LdjrA4UAAAAAIEDCFlBqyS5Q0hBOF2prJH7_K72`)<br>returns word for the created game as `{word: "YourWord"}` |
-| PUT    | 200 OK<br>400 Bad Request<br>503 Internal Server Error | submit a creation for a game of the current session and get the score<br>required parameters: `word` (word received from POST) and `creation` (1-255 alphabetic String containing the word received from POST)<br>returns score as `{word: "YourWord", creation: "YourCreation", results: "NumberOfResults", percent: percentageOfPlayersYouBeat, highscore: "HighscoreForThisWord", rank: YurRankForThisWord}` |
+| GET    | 200 OK<br>404 Not Found | returns the current game of this session as:<br>`{"start":"YYYY-MM-DD hh:mm:ss","username":"YourUsername","word":"YourWord"}` |
+| POST   | 201 Created<br>400 Bad Request<br>503&nbsp;Internal&nbsp;Server&nbsp;Error | starts a new game for this session<br>required parameters:<ul><li>`username` (1-32 alphanumeric String)</li><li>`g-recaptcha-response` (Google reCAPTCHA Response for `6LdjrA4UAAAAAIEDCFlBqyS5Q0hBOF2prJH7_K72`)</li></ul>returns word for the created game as `{word: "YourWord"}` |
+| PUT    | 200 OK<br>400 Bad Request<br>503 Internal Server Error | submit a creation for a game of the current session and get the score<br>required parameters:<ul><li>`word` (word received from POST)</li><li>`creation` (1-255 alphabetic String containing the word received from POST)</li></ul>returns score as:<br>```{word: "YourWord", creation: "YourCreation", results: "NumberOfResults", percent: percentageOfPlayersYouBeat, highscore: "HighscoreForThisWord", rank: YurRankForThisWord}``` |
 
 ### Highscore
 **URI:** /highscore
@@ -44,7 +44,7 @@ The background animation uses a separate file: `words.json` from where it takes 
 
 Whenever a word is inserted, it checks 9 of its pixels whether there was already a word displayed. If so, the other word will be faded out before the new one will take its position.
 
- [9 pixels that will be checked](word.jpg?raw=true)
+ ![9 pixels that will be checked](word.jpg?raw=true)
 
 ## Setup
 Requires npm 2.15+ and Composer 1.3.0+.
