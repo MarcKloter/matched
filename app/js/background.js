@@ -84,9 +84,12 @@ function placeWord(word) {
   // calculate offset from top
   var topOffset = Math.floor(Math.random() * $(document).height());
 
-  fadeOutElementsAtTop(leftOffset, topOffset, word);
-  fadeOutElementsAtCenter(leftOffset, topOffset, word);
-  fadeOutElementsAtBottom(leftOffset, topOffset, word);
+  // calculate relative offset of element to current viewport
+  var relativeTopOffset = topOffset - window.pageYOffset;
+
+  fadeOutElementsAtTop(leftOffset, relativeTopOffset, word);
+  fadeOutElementsAtCenter(leftOffset, relativeTopOffset, word);
+  fadeOutElementsAtBottom(leftOffset, relativeTopOffset, word);
 
   // position word to offsets
   word.css({ top: topOffset, left: leftOffset });
