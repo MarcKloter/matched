@@ -123,6 +123,9 @@ function setupGame(data) {
   // set the word in the game view
   $('#word').html(data.word);
 
+  // reset possible remaining running timers
+  clearInterval(timer);
+
   startTimer(15);
 
   // switch to game view (transitions.js)
@@ -137,15 +140,12 @@ function startTimer(duration) {
   $('#timer span').html(duration);
 
   timer = setInterval(function() {
-    if(word != $('section.active #word').html()) {
-      // if the current word does not match this timer or the game is not active, cancel this timer
-      return clearInterval(timer);
-    }
 
     $('#timer span').html(--duration);
 
     if(duration === 0) {
       clearInterval(timer);
+      
       if(!$('#submit-button').prop('disabled')) {
         // if the creation can be submitted, submit it
         submit();
