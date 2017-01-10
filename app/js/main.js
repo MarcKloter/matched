@@ -74,7 +74,7 @@ function recaptchaLoaded() {
  * disables/enables the play button
  */
 function checkPlayButton() {
-  var disabled = $('#username-input').val().length === 0 || $('[data-for=username-input]').hasClass('invalid') || grecaptcha.getResponse() == "";
+  var disabled = $('#username-input').val().length === 0 || $('[data-for=username-input]').hasClass('invalid') || grecaptcha.getResponse() === "";
   $('#play-button').prop('disabled', disabled);
 }
 
