@@ -63,3 +63,8 @@ Starts a local server on port 8000 (default) running browsersync.
 Check your PHP version: `php -v`.
 
     gulp serve
+
+### Building the project for production
+Use the gulp default task to build the project into the `dist` directory.
+
+    gulp
