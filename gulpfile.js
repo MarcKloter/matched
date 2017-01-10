@@ -19,7 +19,7 @@ gulp.task('sass:watch', ['sass'], function () {
 });
 
 gulp.task('serve', ['sass:watch'], function() {
-  connect.server({ base: 'app', port: 8000 }, function (){ browserSync({ proxy: 'localhost:8000' })});
+  connect.server({ base: 'app', port: 8000 }, function (){ browserSync({ proxy: 'localhost:8000' }); });
   // watch files for changes
   gulp.watch('app/**/*.php').on('change', browserSync.reload);
   gulp.watch('app/style/**/*.css').on('change', browserSync.reload);
