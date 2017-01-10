@@ -5,6 +5,10 @@
     "gulp": "latest",
     "gulp-sass": "latest",
     "gulp-connect-php": "latest",
-    "browser-sync": "latest"
+    "browser-sync": "latest",
+    "del": "latest",
+    "gulp-uglify": "latest",
+    "gulp-svgmin": "latest",
+    "gulp-jsonminify": "latest"
   }
 }
