@@ -4,9 +4,9 @@ $(function() {
   $('section[data-href^="' + uri + '"]').eq(0).addClass('active');
 
   // on game reentrance, continue timer
-if(uri == '/play') {
-  startTimer($('#timer span').html());
-}
+  if(uri == '/play') {
+    startTimer($('#timer span').html());
+  }
 
   // make page titles interactive
   $('.page-title').on('click touchend', function() {
@@ -145,7 +145,7 @@ function startTimer(duration) {
 
     if(duration === 0) {
       clearInterval(timer);
-      
+
       if(!$('#submit-button').prop('disabled')) {
         // if the creation can be submitted, submit it
         submit();
