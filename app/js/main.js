@@ -224,14 +224,12 @@ function validateCreation() {
     $('[data-for=creation-input]').removeClass('invalid');
 
     // if the creation is alphabetic, check if it contains the given word
-    if(creation.length > 0){
-      if(creation.toLowerCase().indexOf($('#word').html().toLowerCase()) === -1) {
-        // if it doesn't contain the word, show an error
-        $('[data-for=creation-input]').html('Die Kreation muss dein Wort enthalten!').addClass('invalid');
-        $('#submit-button').prop('disabled', true);
-      } else {
-        $('#submit-button').prop('disabled', false);
-      }
+    if(creation.toLowerCase().indexOf($('#word').html().toLowerCase()) === -1) {
+      // if it doesn't contain the word, show an error
+      $('[data-for=creation-input]').html('Die Kreation muss dein Wort enthalten!').addClass('invalid');
+      $('#submit-button').prop('disabled', true);
+    } else {
+      $('#submit-button').prop('disabled', false);
     }
   } else {
     $('[data-for=creation-input]').html('Die Kreation darf nur Buchstaben enthalten!').addClass('invalid');
