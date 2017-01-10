@@ -1,6 +1,9 @@
 /**
  * Helper function to capitalize a String
  * From http://stackoverflow.com/a/7224605/
+ *
+ * @param s String
+ * @return String where the first letter is capitalized
  */
 function capitalize(s) {
     return s && s[0].toUpperCase() + s.slice(1);
@@ -8,6 +11,9 @@ function capitalize(s) {
 
 /**
  * transition to a new view
+ *
+ * @param view String, name of a view
+ * @param uri String to set the URI to
  */
 function switchTo(view, uri) {
   // events that signalize the end of an animation

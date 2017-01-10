@@ -118,6 +118,8 @@ function resetHome() {
 
 /**
  * set up a game according to the passed data
+ *
+ * @param decoded JSON from a POST to /game
  */
 function setupGame(data) {
   // set the word in the game view
@@ -133,7 +135,9 @@ function setupGame(data) {
 }
 
 /**
- * starts a 15s timer which automatically submits the creation of the user at the end of it
+ * starts a timer which automatically submits the creation of the user at the end of it
+ *
+ * @param the duration of the timer
  */
 function startTimer(duration) {
   var word = $('#word').html();
@@ -262,6 +266,11 @@ function ladder() {
 
 /**
  * prepares highscore view for the given word
+ *
+ * @param target view's name
+ * @param href of the view (e.g. /highscore/tree)
+ * @param word to prepare the highscore for
+ * @param currentView view that currently is active to prepare the back button
  */
 function prepareHighscore(target, href, word, currentView) {
   $.ajax({

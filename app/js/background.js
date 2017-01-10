@@ -15,15 +15,18 @@ $(function(){
     // trigger window resize event
     window.dispatchEvent(new Event('resize'));
   });
+
+  window.addEventListener('resize', function(event){
+    if($(window).width() > 1000) {
+      calculateVisibleArea();
+      startRandomWords();
+    } else stopRandomWords();
+  });
 });
 
-window.addEventListener('resize', function(event){
-  if($(window).width() > 1000) {
-    calculateVisibleArea();
-    startRandomWords();
-  } else stopRandomWords();
-});
-
+/**
+ * calculates the dimensions of the visible area beside the content
+ */
 function calculateVisibleArea() {
   // area left of the content
   leftArea = {};
@@ -36,6 +39,10 @@ function calculateVisibleArea() {
   rightArea.right = $(window).width();
 }
 
+/**
+ * starts an interval at a random time that displays words
+ * the time is influenced by the size of the window
+ */
 function startRandomWords() {
   // start random words interval if it isn't already running
   if(randomWords === null) {
@@ -44,7 +51,7 @@ function startRandomWords() {
     visibleArea += (rightArea.right - rightArea.left) * $(document).height();
 
     // calculate how many words can be displayed
-    // an average word is 26x250 = 6500px in size
+    // an average word combination of the current words.json is 26x250 = 6500px in size
     var wordCapacity = Math.floor(visibleArea / (26 * 250));
 
     // make sure the screen can't be filled >70% - a word auto fades out after max. 40s
@@ -54,6 +61,9 @@ function startRandomWords() {
   }
 }
 
+/**
+ * stops the interval that displays words
+ */
 function stopRandomWords() {
   if(randomWords !== null) {
     // stop random words interval
@@ -62,6 +72,9 @@ function stopRandomWords() {
   }
 }
 
+/**
+ * requests a random word for display and randomly determines its css properties
+ */
 function displayRandomWord() {
   var word = getRandomWord();
   $('section.active .background').append(word);
@@ -74,6 +87,11 @@ function displayRandomWord() {
   placeWord(word);
 }
 
+/**
+ * places a div at a random position in the visible area beside of the content
+ *
+ * @param word DOM element div
+ */
 function placeWord(word) {
    // decide if the word will be placed in the left/right area
   var area = Math.round(Math.random()) ? leftArea : rightArea;
@@ -101,6 +119,13 @@ function placeWord(word) {
   setTimeout(function(word) { word.fadeOut(1000, function() { $(this).remove(); }); }, Math.floor((Math.random() * 30000) + 10000), word);
 }
 
+/**
+ * calls elementFromPoint for the given word for 3 points on the top
+ *
+ * @param leftOffset number of pixels relative to the left window border
+ * @param topOffset number of pixels relative to the top window border
+ * @param word DOM element div
+ */
 function fadeOutElementsAtTop(leftOffset, topOffset, word) {
   var topLeft = document.elementFromPoint(leftOffset, topOffset);
   fadeOutElementsAtPosition(topLeft);
@@ -112,6 +137,13 @@ function fadeOutElementsAtTop(leftOffset, topOffset, word) {
   fadeOutElementsAtPosition(topRight);
 }
 
+/**
+ * calls elementFromPoint for the given word for 3 points in the middle
+ *
+ * @param leftOffset number of pixels relative to the left window border
+ * @param topOffset number of pixels relative to the top window border
+ * @param word DOM element div
+ */
 function fadeOutElementsAtCenter(leftOffset, topOffset, word) {
   var centerLeft = document.elementFromPoint(leftOffset + (word.width() / 4), topOffset + (word.height() / 2));
   fadeOutElementsAtPosition(centerLeft);
@@ -123,6 +155,13 @@ function fadeOutElementsAtCenter(leftOffset, topOffset, word) {
   fadeOutElementsAtPosition(centerRight);
 }
 
+/**
+ * calls elementFromPoint for the given word for 3 points on the bottom
+ *
+ * @param leftOffset number of pixels relative to the left window border
+ * @param topOffset number of pixels relative to the top window border
+ * @param word DOM element div
+ */
 function fadeOutElementsAtBottom(leftOffset, topOffset, word) {
   var bottomLeft = document.elementFromPoint(leftOffset, topOffset + word.height());
   fadeOutElementsAtPosition(bottomLeft);
@@ -136,6 +175,8 @@ function fadeOutElementsAtBottom(leftOffset, topOffset, word) {
 
 /**
  * takes a DOM element and fades it out, if it is a background word element
+ *
+ * @param elementFromPoint DOM element or NULL
  */
 function fadeOutElementsAtPosition(elementFromPoint) {
   // check if the element is a background word
@@ -145,6 +186,11 @@ function fadeOutElementsAtPosition(elementFromPoint) {
   }
 }
 
+/**
+ * returns a div containing 1 - 2 span tags and a mark tag
+ *
+ * @return DOM element div containing 2 - 3 children nodes
+ */
 function getRandomWord() {
   // decide whether to combine 2 or 3 words
   var noOfWords = Math.floor(Math.random() * 2) + 2;
